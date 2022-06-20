@@ -1,3 +1,22 @@
+/*
+    Copyright (C) 2021-2022  Derek Gaston and Cody Permann
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
+    USA
+*/
+
 #pragma once
 
 #include <iostream>
@@ -56,10 +75,10 @@ public:
   VariadicTable(std::vector<std::string> headers,
                 unsigned int static_column_size = 0,
                 unsigned int cell_padding = 1)
-    : _headers(headers),
-      _num_columns(std::tuple_size<DataTuple>::value),
-      _static_column_size(static_column_size),
-      _cell_padding(cell_padding)
+      : _headers(headers),
+        _num_columns(std::tuple_size<DataTuple>::value),
+        _static_column_size(static_column_size),
+        _cell_padding(cell_padding)
   {
     assert(headers.size() == _num_columns);
   }
@@ -78,7 +97,7 @@ public:
    * Pretty print the table of data
    */
   template <typename StreamType>
-  void print(StreamType & stream)
+  void print(StreamType &stream)
   {
     size_columns();
 
@@ -87,11 +106,14 @@ public:
     unsigned int total_width = _num_columns + 1;
 
     // Now add in the size of each colum
-    for (auto & col_size : _column_sizes)
+    for (auto &col_size : _column_sizes)
       total_width += col_size + (2 * _cell_padding);
 
     // Print out the top line
-    stream << std::string(total_width, '-') << "\n";
+    // stream << std::string(total_width, '-') << "\n";
+
+    //! I changed '-' to '='
+    stream << std::string(total_width, '=') << "\n";
 
     // Print out the headers
     stream << "|";
@@ -111,7 +133,7 @@ public:
     stream << std::string(total_width, '-') << "\n";
 
     // Now print the rows of the table
-    for (auto & row : _data)
+    for (auto &row : _data)
     {
       stream << "|";
       print_each(row, stream);
@@ -119,7 +141,10 @@ public:
     }
 
     // Print out the line below the header
-    stream << std::string(total_width, '-') << "\n";
+    // stream << std::string(total_width, '-') << "\n";
+
+    //! I changed '-' to '='
+    stream << std::string(total_width, '=') << "\n";
   }
 
   /**
@@ -129,7 +154,7 @@ public:
    *
    * @column_format The format for each column: MUST be the same length as the number of columns.
    */
-  void setColumnFormat(const std::vector<VariadicTableColumnFormat> & column_format)
+  void setColumnFormat(const std::vector<VariadicTableColumnFormat> &column_format)
   {
     assert(column_format.size() == std::tuple_size<DataTuple>::value);
 
@@ -143,7 +168,7 @@ public:
    *
    * @column_format The precision for each column: MUST be the same length as the number of columns.
    */
-  void setColumnPrecision(const std::vector<int> & precision)
+  void setColumnPrecision(const std::vector<int> &precision)
   {
     assert(precision.size() == std::tuple_size<DataTuple>::value);
     _precision = precision;
@@ -201,9 +226,9 @@ protected:
             typename StreamType,
             typename = typename std::enable_if<
                 I != std::tuple_size<typename std::remove_reference<TupleType>::type>::value>::type>
-  void print_each(TupleType && t, StreamType & stream, std::integral_constant<size_t, I>)
+  void print_each(TupleType &&t, StreamType &stream, std::integral_constant<size_t, I>)
   {
-    auto & val = std::get<I>(t);
+    auto &val = std::get<I>(t);
 
     // Set the precision
     if (!_precision.empty())
@@ -248,7 +273,7 @@ protected:
    * his is what gets called first
    */
   template <typename TupleType, typename StreamType>
-  void print_each(TupleType && t, StreamType & stream)
+  void print_each(TupleType &&t, StreamType &stream)
   {
     print_each(std::forward<TupleType>(t), stream, std::integral_constant<size_t, 0>());
   }
@@ -259,7 +284,7 @@ protected:
    * If the datatype has a size() member... let's call it
    */
   template <class T>
-  size_t sizeOfData(const T & data, decltype(((T *)nullptr)->size()) * /*dummy*/ = nullptr)
+  size_t sizeOfData(const T &data, decltype(((T *)nullptr)->size()) * /*dummy*/ = nullptr)
   {
     return data.size();
   }
@@ -270,7 +295,7 @@ protected:
    * If the datatype is an integer - let's get it's length
    */
   template <class T>
-  size_t sizeOfData(const T & data,
+  size_t sizeOfData(const T &data,
                     typename std::enable_if<std::is_integral<T>::value>::type * /*dummy*/ = nullptr)
   {
     if (data == 0)
@@ -309,7 +334,7 @@ protected:
             typename = typename std::enable_if<
                 I != std::tuple_size<typename std::remove_reference<TupleType>::type>::value>::type>
   void
-  size_each(TupleType && t, std::vector<unsigned int> & sizes, std::integral_constant<size_t, I>)
+  size_each(TupleType &&t, std::vector<unsigned int> &sizes, std::integral_constant<size_t, I>)
   {
     sizes[I] = sizeOfData(std::get<I>(t));
 
@@ -326,7 +351,7 @@ protected:
    * The function that is actually called that starts the recursion
    */
   template <typename TupleType>
-  void size_each(TupleType && t, std::vector<unsigned int> & sizes)
+  void size_each(TupleType &&t, std::vector<unsigned int> &sizes)
   {
     size_each(std::forward<TupleType>(t), sizes, std::integral_constant<size_t, 0>());
   }
@@ -346,7 +371,7 @@ protected:
       _column_sizes[i] = _headers[i].size();
 
     // Grab the size of each entry of each row and see if it's bigger
-    for (auto & row : _data)
+    for (auto &row : _data)
     {
       size_each(row, column_sizes);
 
