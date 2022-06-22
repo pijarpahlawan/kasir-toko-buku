@@ -1,14 +1,18 @@
 #include <fstream>
+#include "Queue.h"
 
 class FileIO
 {
 private:
     std::fstream file;
-    std::string *datas;
+    Buku *datas;
     int size;
+    int index;
 
 public:
     FileIO(int);
-    std::string *read(const char *);
-    void write(const char *, std::string *);
+    Buku *read(const char *);
+    Buku *read(const char *, Queue &);
+    void write(const char *, Buku *);
+    ~FileIO();
 };
