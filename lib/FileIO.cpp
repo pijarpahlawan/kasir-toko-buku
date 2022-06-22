@@ -1,87 +1,71 @@
 #include "FileIO.h"
 
 /**
- * @brief Construct a new FileIO:: File IO object
+ * @brief Membaca data buku di dalam database
  *
- * @param numof_datas jumlah buku
- */
-FileIO::FileIO(int numof_datas)
-{
-    size = numof_datas;
-    this->datas = new Buku[size];
-}
-
-/**
- * @brief Membaca data buku dari file .csv
- *
- * @param name nama file dengan ekstensi csv
  * @return Buku*
  */
-Buku *FileIO::read(const char *name)
+Buku *FileIO::read()
 {
     index = 0;
+
     // data dari file
-    file.open(name, std::ios::in);
+    file.open("database.csv", std::ios::in);
     //! butuh penanganan error
     while (!file.eof())
     {
-        std::getline(file, (this->datas + index)->judul, ',');
-        std::getline(file, (this->datas + index)->isbn, ',');
-        std::getline(file, (this->datas + index)->penulis, ',');
-        std::getline(file, (this->datas + index)->penerbit, ',');
-        std::getline(file, (this->datas + index)->th_terbit, ',');
-        file >> (this->datas + index)->harga;
+        std::getline(file, (datas + index)->judul, ',');
+        std::getline(file, (datas + index)->isbn, ',');
+        std::getline(file, (datas + index)->penulis, ',');
+        std::getline(file, (datas + index)->penerbit, ',');
+        std::getline(file, (datas + index)->th_terbit, ',');
+        file >> (datas + index)->harga;
         index++;
     }
     file.close();
 
-    return this->datas;
+    return datas;
 }
 
 /**
- * @brief Membaca data dari file dan data baru dari user
+ * @brief Membaca data dari database dan dari inputan user terbaru
  *
- * @param name nama file dengan ekstensi csv
- * @param datas data baru dari user
- * @return Buku*
+ * @param new_datas inputan user terbaru
  */
-Buku *FileIO::read(const char *name, Queue &datas)
+void FileIO::read(Queue &new_datas)
 {
     index = 0;
+
     // data dari file
-    file.open(name, std::ios::in);
+    file.open("database.csv", std::ios::in);
     //! butuh penanganan error
     while (!file.eof())
     {
-        std::getline(file, (this->datas + index)->judul, ',');
-        std::getline(file, (this->datas + index)->isbn, ',');
-        std::getline(file, (this->datas + index)->penulis, ',');
-        std::getline(file, (this->datas + index)->penerbit, ',');
-        std::getline(file, (this->datas + index)->th_terbit, ',');
-        file >> (this->datas + index)->harga;
+        std::getline(file, (datas + index)->judul, ',');
+        std::getline(file, (datas + index)->isbn, ',');
+        std::getline(file, (datas + index)->penulis, ',');
+        std::getline(file, (datas + index)->penerbit, ',');
+        std::getline(file, (datas + index)->th_terbit, ',');
+        file >> (datas + index)->harga;
         index++;
     }
     file.close();
 
     // data dari inputan user
-    while (index != size)
+    while (!new_datas.isEmpty())
     {
-        *(this->datas + index) = datas.dequeue();
+        *(datas + index) = new_datas.dequeue();
         index++;
     }
-
-    return this->datas;
 }
 
 /**
- * @brief Menulis data ke dalam file .csv
+ * @brief Menulis data buku ke dalam database
  *
- * @param name nama file dengan ekstensi csv
- * @param datas data buku yang akan dimasukkan ke file
  */
-void FileIO::write(const char *name, Buku *datas)
+void FileIO::write()
 {
-    file.open(name, std::ios::out);
+    file.open("database.csv", std::ios::out);
 
     //! butuh penanganan error
     for (int i = 0; i < size; i++)
@@ -96,13 +80,4 @@ void FileIO::write(const char *name, Buku *datas)
     }
 
     file.close();
-}
-
-/**
- * @brief Destroy the FileIO:: FileIO object
- *
- */
-FileIO::~FileIO()
-{
-    delete[] datas;
 }
