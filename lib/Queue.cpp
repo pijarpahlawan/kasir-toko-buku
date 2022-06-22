@@ -1,5 +1,4 @@
 #include "Queue.h"
-#define max 2
 
 /**
  * @brief Construct a new Queue:: Queue object
@@ -11,7 +10,7 @@ Queue::Queue()
 }
 
 /**
- * @brief Memeriksa queue kosong atau tidak
+ * @brief Mengecek apakah queue kosong
  *
  * @return true
  * @return false
@@ -22,20 +21,9 @@ bool Queue::isEmpty()
 }
 
 /**
- * @brief Memeriksa queue penuh atau tidak
+ * @brief Memasukkan data ke dalam queue
  *
- * @return true
- * @return false
- */
-bool Queue::isFull()
-{
-    return limit == max;
-}
-
-/**
- * @brief Memasukkan data buku di dalam queue
- *
- * @param data data buku
+ * @param data
  */
 void Queue::enqueue(Buku data)
 {
@@ -51,12 +39,10 @@ void Queue::enqueue(Buku data)
 
     rear->next = temp;
     rear = temp;
-
-    limit++;
 }
 
 /**
- * @brief Mengambil data buku urutan pertama
+ * @brief Mengambil sekaligus menghapus data dari queue
  *
  * @return Buku
  */
@@ -72,8 +58,6 @@ Buku Queue::dequeue()
 
     if (isEmpty())
         rear = nullptr;
-
-    limit--;
 
     delete temp;
     return data;
