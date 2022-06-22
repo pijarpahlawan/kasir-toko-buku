@@ -1,3 +1,4 @@
+#pragma once
 #include "FileIO.h"
 
 class Data : public FileIO

@@ -1,3 +1,4 @@
+#pragma once
 #include "Buku.h"
 
 // Linked list buku
