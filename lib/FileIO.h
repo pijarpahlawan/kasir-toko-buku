@@ -1,11 +1,10 @@
 #pragma once
-#include <fstream>
 #include "Queue.h"
 
 class FileIO
 {
 private:
-    std::fstream file;
+    fstream file;
 
 protected:
     Buku *datas;
@@ -13,7 +12,7 @@ protected:
     int index;
 
 public:
-    Buku *read();
+    void read();
     void read(Queue &);
     void write();
 };
