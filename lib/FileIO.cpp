@@ -57,7 +57,7 @@ void FileIO::read(Queue &new_datas)
 
 void FileIO::write()
 {
-    file.open("database.csv", ios::out);
+    file.open("export\\database.csv", ios::out);
 
     //! butuh penanganan error
     for (int i = 0; i < size; i++)
