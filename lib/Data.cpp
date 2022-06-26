@@ -1,23 +1,11 @@
 #include "Data.h"
 
-/**
- * @brief Construct a new Data:: Data object
- *
- * @param datas data buku
- * @param size jumlah buku
- */
-Data::Data(Buku *datas, int numof_datas)
+Data::Data(Buku *datas, int &numof_datas)
 {
     this->datas = datas;
     size = numof_datas;
 }
 
-/**
- * @brief Mencari data buku sesuai judul
- *
- * @param title judul buku
- * @return Buku*
- */
 Buku *Data::search(const char *title)
 {
     finded = false;
@@ -39,15 +27,7 @@ Buku *Data::search(const char *title)
         return nullptr;
 }
 
-/**
- * @brief Memutuskan prioritas urutan buku berdasarkan judul
- *
- * @param a judul buku pertama
- * @param b judul buku kedua
- * @return true
- * @return false
- */
-bool Data::isPrecede(std::string a, std::string b)
+bool Data::isPrecede(string a, string b)
 {
     int id = 0;
     while (id != (b.length() - 1) || id != (a.length() - 1))
@@ -61,10 +41,6 @@ bool Data::isPrecede(std::string a, std::string b)
     return id == (b.length() - 1) ? true : false;
 }
 
-/**
- * @brief Mengurutkan buku berdasarkan judul buku sesuai abjad
- *
- */
 void Data::sort()
 {
     Buku temp;

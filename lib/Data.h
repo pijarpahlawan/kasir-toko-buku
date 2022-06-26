@@ -5,10 +5,10 @@ class Data : public FileIO
 {
 private:
     bool finded;
-    bool isPrecede(std::string, std::string);
+    bool isPrecede(string, string);
 
 public:
-    Data(Buku *, int);
+    Data(Buku *, int &);
     Buku *search(const char *);
     void sort();
 };
