@@ -1,17 +1,39 @@
 #include "declare.h"
 
-Buku *beli()
+void beli()
 {
-    // TODO: disempurakan lagi ya wkwkwk
-    // TODO: jangan lupa deklarasikan function ini ke declare.h sebagai extern
-    //! 1. bikin array of struct buku (dinamis)
-    Buku *kumpulan_buku = new Buku[numof_book];
+    int size = 0;
+    size = calculate(size);
+    Buku *books = new Buku[size];
     Buku *buku = nullptr;
-    //! 2. bikin objek data
-    //! 3. parse array tadi ke objek data
-    Data data(kumpulan_buku, numof_book);
-    //! 4. cari buku
+    Data data(books, size);
+    string title;
+
+    // TODO: meminta judul buku yang dicari
+
     data.read();
-    buku = data.search("Judul buku");
-    return buku;
+
+    while (true)
+    {
+        buku = data.search(title);
+        if (!buku)
+        {
+            // TODO: tampilkan notif kosong
+            // TODO: meminta lanjut ke awal/cari lagi
+            //* if awal then return
+            return;
+        }
+        else
+        {
+            // TODO: print buku
+            // TODO: pertanyaan jadi beli
+            //** if jadi then
+            // TODO: pembayaran
+            // TODO: beli lagi?
+            //* if !beli_lagi then break
+            //** else (if awal then return)
+        }
+    }
+    data.write();
+    // TODO: cetak nota
 }
