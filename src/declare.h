@@ -1,3 +1,4 @@
 #include "../lib/Data.h"
 
-extern void inputData(Queue &);
+extern int calculate(int);
+extern int display();
