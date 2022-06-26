@@ -51,7 +51,7 @@ Buku Queue::dequeue()
     Buku data = front->data;
 
     if (isEmpty())
-        return;
+        return {};
 
     Node *temp = front;
     front = front->next;
