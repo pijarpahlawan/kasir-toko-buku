@@ -6,7 +6,7 @@ Data::Data(Buku *datas, int &numof_datas)
     size = numof_datas;
 }
 
-Buku *Data::search(const char *title)
+Buku *Data::search(string title)
 {
     finded = false;
     index = 0;

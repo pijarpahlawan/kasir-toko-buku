@@ -9,6 +9,6 @@ private:
 
 public:
     Data(Buku *, int &);
-    Buku *search(const char *);
+    Buku *search(string);
     void sort();
 };
