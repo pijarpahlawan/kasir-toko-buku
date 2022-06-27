@@ -5,19 +5,21 @@ void beli()
     int size = 0;
     size = calculate(size);
     Buku *books = new Buku[size];
-    Buku *buku = nullptr;
+    Buku *book = nullptr;
     Data data(books, size);
-    string title;
-
-    // TODO: meminta judul buku yang dicari
+    string cari;
 
     data.read();
 
     while (true)
     {
-        buku = data.search(title);
-        if (!buku)
+        cout << "========== PENCARIAN BUKU ==========\n";
+        cout << "Masukkan Judul Buku yang Akan Dicari: ";
+        getline(cin, cari);
+        book = data.search(cari);
+        if (!book)
         {
+            cout << "Buku Tidak Ditemukan\n";
             // TODO: tampilkan notif kosong
             // TODO: meminta lanjut ke awal/cari lagi
             //* if awal then return
@@ -25,6 +27,7 @@ void beli()
         }
         else
         {
+            cout << "Buku Ditemukan!\n";
             // TODO: print buku
             // TODO: pertanyaan jadi beli
             //** if jadi then

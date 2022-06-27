@@ -10,9 +10,9 @@ void display()
 
     data.read();
 
-    VariadicTable<int, string, int> vt({"No.", "Judul", "Harga"});
+    VariadicTable<int, string, string, int> vt({"No.", "Judul", "Penulis", "Harga"});
     for (int i = 0; i < size; i++)
-        vt.addRow(i + 1, (books + i)->judul, (books + i)->harga);
+        vt.addRow(i + 1, (books + i)->judul, (books+i)->penulis, (books + i)->harga);
     vt.print(cout);
 
     delete[] books;
