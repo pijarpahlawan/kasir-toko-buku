@@ -1,16 +1,64 @@
 #include "../lib/VariadicTable.h"
 #include "declare.h"
 
-void printStruk(Buku buku, Queue &list)
+void printBook(Buku *book)
 {
-    cout << "Tanggal :........." << endl;
+    cout << "Judul buku : " << book->judul << endl;
+    cout << "ISBN       : " << book->isbn << endl;
+    cout << "Penulis    : " << book->penulis << endl;
+    cout << "Penerbit   : " << book->penerbit << endl;
+    cout << "Th. Terbit : " << book->th_terbit << endl;
+    cout << "Harga      : " << book->harga << endl;
+}
+
+void printStruk(Buku buku, Queue &list, int money_in, int money_out, int total)
+{
+    int receipt_number = 1;
+    ofstream write;
+    ifstream read;
+    string line;
+
+    while (true)
+    {
+        read.open("export\\history\\receipt" + to_string(receipt_number) + ".txt");
+        if (read)
+        {
+            receipt_number++;
+            read.close();
+        }
+        else
+        {
+            read.close();
+            break;
+        }
+    }
+
+    write.open("export\\history\\receipt" + to_string(receipt_number) + ".txt");
+    write << "\t\t\t======================" << endl;
+    write << "\t\t\t| KWITANSI PEMBELIAN |" << endl;
+    write << "\t\t\t======================" << endl;
+    write << "Tanggal :........." << endl;
     VariadicTable<string, int, int, int> vt({"Judul Buku", "Jumlah Buku", "Harga Satuan", "Total"});
     while (!list.isEmpty())
     {
         buku = list.dequeue();
         vt.addRow(buku.judul, buku.jumlah, buku.harga, (buku.jumlah * buku.harga));
     }
-    vt.print(cout, '_', '-', '-');
+    vt.print(write, '_', '-', '-');
+    write << "Jumlah tagihan     : " << total << endl;
+    write << "Uang dibayarkan    : " << money_in << endl;
+    write << "Kembalian          : " << money_out << endl;
+    write << "\t\t===================================" << endl;
+    write << "\t\tTerimakasih Telah Membeli Buku Kami" << endl;
+    write << "\t\t===================================" << endl;
+    write.close();
+
+    read.open("export\\history\\receipt" + to_string(receipt_number) + ".txt");
+    while (getline(read, line))
+    {
+        std::cout << line << "\n";
+    }
+    read.close();
 }
 
 void beli()
@@ -18,9 +66,9 @@ void beli()
     char answer = '\0';
     int option = 0;
     int jumlah_beli = 0;
-    int jumlah_pembelian = 0;
     int inputuang = 0;
     int kembalian = 0;
+    int total = 0;
     string cari;
     Queue list_beli;
     Buku *book = nullptr;
@@ -68,13 +116,7 @@ find:
         while (true)
         {
             system("cls");
-            cout << "Judul buku : " << book->judul << endl;
-            cout << "ISBN       : " << book->isbn << endl;
-            cout << "Penulis    : " << book->penulis << endl;
-            cout << "Penerbit   : " << book->penerbit << endl;
-            cout << "Th. Terbit : " << book->th_terbit << endl;
-            cout << "Harga      : " << book->harga << endl;
-
+            printBook(book);
             cout << "Apakah anda jadi membeli buku ini?  (y/t) : ";
             cin >> answer;
 
@@ -97,39 +139,7 @@ find:
                     buku_dibeli.jumlah = jumlah_beli;
                     list_beli.enqueue(buku_dibeli);
                     book->jumlah = book->jumlah - jumlah_beli;
-
-                    while (true)
-                    {
-                        system("cls");
-                        cout << "Harga total: " << (book->harga) * jumlah_beli << endl;
-                        cout << "Masukan Jumlah Uang Pembayaran : ";
-                        cin >> inputuang;
-
-                        kembalian = inputuang - (book->harga) * jumlah_beli;
-                        if (kembalian < 0)
-                        {
-                            system("cls");
-                            cout << "Maaf uang anda kurang" << endl;
-                            cout << "Silahkan Masukan Kembali" << endl;
-                            cin.ignore();
-                            cin.get();
-                        }
-                        else if (kembalian > 0)
-                        {
-                            cout << "Kembalian : " << kembalian << endl;
-                            cin.ignore();
-                            cin.get();
-                            break;
-                        }
-                        else
-                        {
-                            cout << "Terima kasih" << endl;
-                            cin.ignore();
-                            cin.get();
-                            break;
-                        }
-                    }
-                    jumlah_pembelian++;
+                    total = total + (book->harga) * jumlah_beli;
                 }
                 while (true)
                 {
@@ -153,6 +163,40 @@ find:
                         cin.get();
                     }
                 }
+                while (true)
+                {
+                    system("cls");
+                    cout << "Harga total: " << total << endl;
+                    cout << "Masukan Jumlah Uang Pembayaran : ";
+                    cin >> inputuang;
+
+                    kembalian = inputuang - total;
+                    if (kembalian < 0)
+                    {
+                        system("cls");
+                        cout << "Maaf uang anda kurang" << endl;
+                        cout << "Silahkan Masukan Kembali" << endl;
+                        cin.ignore();
+                        cin.get();
+                    }
+                    else if (kembalian > 0)
+                    {
+                        cout << "Kembalian : " << kembalian << endl;
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    }
+                    else
+                    {
+                        cout << "Terima kasih" << endl;
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    }
+                }
+                system("cls");
+                printStruk(buku_dibeli, list_beli, inputuang, kembalian, total);
+                cin.get();
                 break;
             }
             else if (answer == 't')
@@ -165,14 +209,6 @@ find:
                 cin.get();
             }
         }
-    }
-
-    if (jumlah_pembelian > 0)
-    {
-        system("cls");
-        printStruk(buku_dibeli, list_beli);
-        cin.ignore();
-        cin.get();
     }
 
     data.validation();
