@@ -12,8 +12,8 @@ void display()
 
     VariadicTable<int, string, string, int> vt({"No.", "Judul", "Penulis", "Harga"});
     for (int i = 0; i < size; i++)
-        vt.addRow(i + 1, (books + i)->judul, (books+i)->penulis, (books + i)->harga);
-    vt.print(cout);
+        vt.addRow(i + 1, (books + i)->judul, (books + i)->penulis, (books + i)->harga);
+    vt.print(cout, '=', '=', '=');
 
     delete[] books;
 }

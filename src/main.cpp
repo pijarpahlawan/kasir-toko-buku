@@ -18,7 +18,7 @@ int main()
         }
         else if (menu == 2)
         {
-            // beli
+            beli();
         }
         else if (menu == 3)
         {
