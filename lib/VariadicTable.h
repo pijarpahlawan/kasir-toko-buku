@@ -96,8 +96,9 @@ public:
   /**
    * Pretty print the table of data
    */
+  //! little modif param
   template <typename StreamType>
-  void print(StreamType &stream)
+  void print(StreamType &stream, char top, char bottom, char below_header)
   {
     size_columns();
 
@@ -112,8 +113,8 @@ public:
     // Print out the top line
     // stream << std::string(total_width, '-') << "\n";
 
-    //! I changed '-' to '='
-    stream << std::string(total_width, '=') << "\n";
+    //! saya mengubah border atas sesuai karakter yang diinputkan
+    stream << std::string(total_width, top) << "\n";
 
     // Print out the headers
     stream << "|";
@@ -129,8 +130,9 @@ public:
 
     stream << "\n";
 
+    //! saya mengubah border atas sesuai karakter yang diinputkan
     // Print out the line below the header
-    stream << std::string(total_width, '-') << "\n";
+    stream << std::string(total_width, below_header) << "\n";
 
     // Now print the rows of the table
     for (auto &row : _data)
@@ -140,11 +142,11 @@ public:
       stream << "\n";
     }
 
-    // Print out the line below the header
+    // Print out the line bottom
     // stream << std::string(total_width, '-') << "\n";
 
-    //! I changed '-' to '='
-    stream << std::string(total_width, '=') << "\n";
+    //! saya mengubah border atas sesuai karakter yang diinputkan
+    stream << std::string(total_width, bottom) << "\n";
   }
 
   /**
