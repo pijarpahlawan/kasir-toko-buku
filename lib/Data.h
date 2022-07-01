@@ -11,4 +11,5 @@ public:
     Data(Buku *, int &);
     Buku *search(string);
     void sort();
+    void validation();
 };

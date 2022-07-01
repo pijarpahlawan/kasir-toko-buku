@@ -58,3 +58,25 @@ void Data::sort()
         *(datas + j + 1) = temp;
     }
 }
+
+void Data::validation()
+{
+    int i = 0;
+
+    while (i < size)
+    {
+        for (i; i < size; i++)
+            if ((datas + i)->jumlah == 0)
+                break;
+        if (i < size)
+        {
+            size--;
+            for (int j = i; j < size; j++)
+                *(datas + j) = *(datas + j + 1);
+        }
+    }
+
+    ofstream write_amount("export\\amount.txt");
+    write_amount << "jumlah buku saat ini = " << size;
+    write_amount.close();
+}
