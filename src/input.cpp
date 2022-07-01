@@ -28,11 +28,12 @@ int request(Queue &data)
 
     while (true)
     {
+        system("cls");
         questions(data);
-        cout << "\nIngin menginputkan lagi? " << endl;
+        cout << "\nIngin menginputkan lagi? (y/t)" << endl;
         cin >> option;
         size++;
-        if (option == 'n')
+        if (option == 't')
             break;
     }
 

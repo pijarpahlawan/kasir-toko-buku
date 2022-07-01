@@ -6,6 +6,7 @@ int main()
 
     while (true)
     {
+        system("cls");
         display();
 
         cout << "\n[1] Input data\n[2] Beli buku\n[3] Keluar" << endl;
