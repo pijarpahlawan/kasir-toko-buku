@@ -5,12 +5,12 @@ class FileIO
 {
 private:
     fstream file;
-    string capitalize(const string &);
 
 protected:
     Buku *datas;
     int size;
     int index;
+    string capitalize(const string &);
 
 public:
     void read();

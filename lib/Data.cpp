@@ -8,6 +8,7 @@ Data::Data(Buku *datas, int &numof_datas)
 
 Buku *Data::search(string title)
 {
+    title = capitalize(title);
     finded = false;
     index = 0;
 
