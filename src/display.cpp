@@ -14,6 +14,8 @@ void display()
 
     data.read();
 
+    cout << "\t\t Kasir Toko Buku " << endl;
+    cout << "\t\t*****************" << endl;
     VariadicTable<int, string, string, string> vt({"No.", "Judul", "Penulis", "Harga"});
     for (int i = 0; i < size; i++)
         vt.addRow(i + 1, (books + i)->judul, (books + i)->penulis, fprice((books + i)->harga));
