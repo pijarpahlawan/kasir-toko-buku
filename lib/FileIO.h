@@ -5,6 +5,7 @@ class FileIO
 {
 private:
     fstream file;
+    string capitalize(const string &);
 
 protected:
     Buku *datas;
