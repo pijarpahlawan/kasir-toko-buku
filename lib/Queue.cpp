@@ -23,7 +23,7 @@ bool Queue::isEmpty()
 /**
  * @brief Memasukkan data ke dalam queue
  *
- * @param data
+ * @param data data yang akan dimasukkan ke dalam queue
  */
 void Queue::enqueue(Buku data)
 {

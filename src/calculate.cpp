@@ -1,5 +1,11 @@
 #include "declare.h"
 
+/**
+ * @brief kalkulasi jumlah ukuran alokasi array
+ *
+ * @param numof_title_new jumlah judul baru yang ditambahkan
+ * @return int
+ */
 int calculate(int numof_title_new)
 {
     int numof_title_now;

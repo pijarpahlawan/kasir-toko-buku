@@ -1,6 +1,10 @@
 #include "../lib/VariadicTable.h"
 #include "declare.h"
 
+/**
+ * @brief menampilkan buku yang tersedia
+ *
+ */
 void display()
 {
     int size = 0;

@@ -1,6 +1,10 @@
 #pragma once
 #include "FileIO.h"
 
+/**
+ * @brief kelas pengolahan data
+ *
+ */
 class Data : public FileIO
 {
 private:

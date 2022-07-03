@@ -1,6 +1,7 @@
 #pragma once
 #include "Node.h"
 
+// kelas queue
 class Queue
 {
 private:

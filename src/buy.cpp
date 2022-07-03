@@ -2,6 +2,11 @@
 #include "declare.h"
 #include "ctime"
 
+/**
+ * @brief cetak informasi buku
+ *
+ * @param book buku yang akan dicetak informasinya
+ */
 void printBook(Buku *book)
 {
     cout << "Judul buku : " << book->judul << endl;
@@ -12,12 +17,21 @@ void printBook(Buku *book)
     cout << "Harga      : " << fprice(book->harga) << endl;
 }
 
-void printStruk(Buku buku, Queue &list, int money_in, int money_out, int total)
+/**
+ * @brief cetak struk pembelian buku
+ *
+ * @param list buku-buku yang dibeli
+ * @param money_in uang yang dibayarkan
+ * @param money_out kembalian
+ * @param total total belanja
+ */
+void printStruk(Queue &list, int money_in, int money_out, int total)
 {
     int receipt_number = 1;
     ofstream write;
     ifstream read;
     string line;
+    Buku buku;
 
     while (true)
     {
@@ -65,6 +79,10 @@ void printStruk(Buku buku, Queue &list, int money_in, int money_out, int total)
     read.close();
 }
 
+/**
+ * @brief beli buku
+ *
+ */
 void beli()
 {
     char answer = '\0';
@@ -199,7 +217,7 @@ find:
                     }
                 }
                 system("cls");
-                printStruk(buku_dibeli, list_beli, inputuang, kembalian, total);
+                printStruk(list_beli, inputuang, kembalian, total);
                 cin.get();
                 break;
             }

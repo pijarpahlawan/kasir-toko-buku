@@ -1,11 +1,23 @@
 #include "Data.h"
 
+/**
+ * @brief Construct a new Data:: Data object
+ *
+ * @param datas data buku
+ * @param numof_datas jumlah judul buku
+ */
 Data::Data(Buku *datas, int &numof_datas)
 {
     this->datas = datas;
     size = numof_datas;
 }
 
+/**
+ * @brief mencari judul buku yang sama dengan target
+ *
+ * @param title target judul
+ * @return Buku*
+ */
 Buku *Data::search(string title)
 {
     title = capitalize(title);
@@ -28,6 +40,14 @@ Buku *Data::search(string title)
         return nullptr;
 }
 
+/**
+ * @brief menentukan judul mana yang didahulukan dalam urutan
+ *
+ * @param a judul 1
+ * @param b judul 2
+ * @return true
+ * @return false
+ */
 bool Data::isPrecede(string a, string b)
 {
     int id = 0;
@@ -42,6 +62,10 @@ bool Data::isPrecede(string a, string b)
     return id == (b.length() - 1) ? true : false;
 }
 
+/**
+ * @brief mengurutkan judul buku sesuai abjad
+ *
+ */
 void Data::sort()
 {
     Buku temp;
@@ -60,6 +84,10 @@ void Data::sort()
     }
 }
 
+/**
+ * @brief memvalidasi jumlah buku di dalam database yang 0 akan dihapus
+ *
+ */
 void Data::validation()
 {
     int i = 0;

@@ -1,5 +1,11 @@
 #include "declare.h"
 
+/**
+ * @brief memformat harga sesuai kaidah penulisan
+ *
+ * @param price harga yang mau diformat
+ * @return string
+ */
 string fprice(int price)
 {
     string price_s = to_string(price);

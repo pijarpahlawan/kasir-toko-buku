@@ -1,5 +1,10 @@
 #include "declare.h"
 
+/**
+ * @brief meminta input tiap informasi buku
+ *
+ * @param data tempat menyimpan informasi
+ */
 void questions(Queue &data)
 {
     Buku buku;
@@ -21,6 +26,12 @@ void questions(Queue &data)
     data.enqueue(buku);
 }
 
+/**
+ * @brief meminta keputusan apakah ingin menginputkan lagi/tidak
+ *
+ * @param data tempat menyimpan informasi data
+ * @return int
+ */
 int request(Queue &data)
 {
     char option = '\0';
@@ -42,6 +53,10 @@ int request(Queue &data)
     return size;
 }
 
+/**
+ * @brief menginputkan data buku
+ *
+ */
 void input()
 {
     Queue new_data;
