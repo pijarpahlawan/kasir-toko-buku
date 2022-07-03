@@ -9,7 +9,7 @@ void printBook(Buku *book)
     cout << "Penulis    : " << book->penulis << endl;
     cout << "Penerbit   : " << book->penerbit << endl;
     cout << "Th. Terbit : " << book->th_terbit << endl;
-    cout << "Harga      : " << book->harga << endl;
+    cout << "Harga      : " << fprice(book->harga) << endl;
 }
 
 void printStruk(Buku buku, Queue &list, int money_in, int money_out, int total)
@@ -35,23 +35,23 @@ void printStruk(Buku buku, Queue &list, int money_in, int money_out, int total)
     }
 
     time_t now = time(0);
-    char* dt = ctime(&now);
-    
+    char *dt = ctime(&now);
+
     write.open("export\\history\\receipt" + to_string(receipt_number) + ".txt");
     write << "\t\t\t======================" << endl;
     write << "\t\t\t| KWITANSI PEMBELIAN |" << endl;
     write << "\t\t\t======================" << endl;
     write << "Tanggal : " << dt << endl;
-    VariadicTable<string, int, int, int> vt({"Judul Buku", "Jumlah Buku", "Harga Satuan", "Total"});
+    VariadicTable<string, int, string, string> vt({"Judul Buku", "Jumlah Buku", "Harga Satuan", "Total"});
     while (!list.isEmpty())
     {
         buku = list.dequeue();
-        vt.addRow(buku.judul, buku.jumlah, buku.harga, (buku.jumlah * buku.harga));
+        vt.addRow(buku.judul, buku.jumlah, fprice(buku.harga), fprice((buku.jumlah * buku.harga)));
     }
     vt.print(write, '_', '-', '-');
-    write << "Jumlah tagihan     : " << total << endl;
-    write << "Uang dibayarkan    : " << money_in << endl;
-    write << "Kembalian          : " << money_out << endl;
+    write << "Jumlah tagihan     : " << fprice(total) << endl;
+    write << "Uang dibayarkan    : " << fprice(money_in) << endl;
+    write << "Kembalian          : " << fprice(money_out) << endl;
     write << "\t\t===================================" << endl;
     write << "\t\tTerimakasih Telah Membeli Buku Kami" << endl;
     write << "\t\t===================================" << endl;
@@ -170,7 +170,7 @@ find:
                 while (true)
                 {
                     system("cls");
-                    cout << "Harga total: " << total << endl;
+                    cout << "Harga total: " << fprice(total) << endl;
                     cout << "Masukan Jumlah Uang Pembayaran : ";
                     cin >> inputuang;
 
@@ -185,7 +185,7 @@ find:
                     }
                     else if (kembalian > 0)
                     {
-                        cout << "Kembalian : " << kembalian << endl;
+                        cout << "Kembalian : " << fprice(kembalian) << endl;
                         cin.ignore();
                         cin.get();
                         break;
