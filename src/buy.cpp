@@ -1,5 +1,6 @@
 #include "../lib/VariadicTable.h"
 #include "declare.h"
+#include "ctime"
 
 void printBook(Buku *book)
 {
@@ -33,11 +34,14 @@ void printStruk(Buku buku, Queue &list, int money_in, int money_out, int total)
         }
     }
 
+    time_t now = time(0);
+    char* dt = ctime(&now);
+    
     write.open("export\\history\\receipt" + to_string(receipt_number) + ".txt");
     write << "\t\t\t======================" << endl;
     write << "\t\t\t| KWITANSI PEMBELIAN |" << endl;
     write << "\t\t\t======================" << endl;
-    write << "Tanggal :........." << endl;
+    write << "Tanggal : " << dt << endl;
     VariadicTable<string, int, int, int> vt({"Judul Buku", "Jumlah Buku", "Harga Satuan", "Total"});
     while (!list.isEmpty())
     {
