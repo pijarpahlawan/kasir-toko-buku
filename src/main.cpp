@@ -27,7 +27,11 @@ int main()
         }
         else
         {
-            cout << "Pilih yg benar masnya" << endl;
+            system("cls");
+            cout << "error" << endl;
+            cout << "Tekan enter untuk melanjutkan...";
+            cin.ignore();
+            cin.get();
         }
     }
 

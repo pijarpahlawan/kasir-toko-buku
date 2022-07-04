@@ -9,6 +9,7 @@
  */
 void printBook(Buku *book)
 {
+    cout << "=========== Informasi Buku ===========" << endl;
     cout << "Judul buku : " << book->judul << endl;
     cout << "ISBN       : " << book->isbn << endl;
     cout << "Penulis    : " << book->penulis << endl;
@@ -104,7 +105,7 @@ void beli()
 
 find:
     system("cls");
-    cout << "========== PENCARIAN BUKU ==========\n";
+    cout << "=========== PENCARIAN BUKU ===========\n";
     cout << "Masukkan Judul Buku yang Akan Dicari: ";
     cin.ignore();
     getline(cin, cari);
@@ -128,7 +129,8 @@ find:
             {
                 system("cls");
                 cout << "Error" << endl;
-                cout << "Tekan enter untuk kembali menginputkan...";
+                cout << "Tekan enter untuk melanjutkan...";
+                cin.ignore();
                 cin.get();
             }
         }
@@ -139,7 +141,7 @@ find:
         {
             system("cls");
             printBook(book);
-            cout << "Apakah anda jadi membeli buku ini?  (y/t) : ";
+            cout << "Apakah anda jadi membeli buku ini? ";
             cin >> answer;
 
             if (answer == 'y')
@@ -152,6 +154,7 @@ find:
                 {
                     system("cls");
                     cout << "Stok kurang" << endl;
+                    cout << "Tekan enter untuk melanjutkan...";
                     cin.ignore();
                     cin.get();
                 }
@@ -166,23 +169,20 @@ find:
                 while (true)
                 {
                     system("cls");
-                    cout << "Apakah anda ingin membeli lagi? (y/t) : ";
+                    cout << "Apakah anda ingin membeli lagi? ";
                     cin >> answer;
 
                     if (answer == 'y')
                     {
                         goto find;
                     }
-                    else if (answer == 't')
-                    {
-                        break;
-                    }
                     else
                     {
-                        system("cls");
-                        cout << "Error" << endl;
-                        cin.ignore();
-                        cin.get();
+                        if (total != 0)
+                            break;
+                        else
+                            return;
+                        break;
                     }
                 }
                 while (true)
@@ -197,7 +197,7 @@ find:
                     {
                         system("cls");
                         cout << "Maaf uang anda kurang" << endl;
-                        cout << "Silahkan Masukan Kembali" << endl;
+                        cout << "Silahkan Masukan Kembali..." << endl;
                         cin.ignore();
                         cin.get();
                     }
@@ -221,15 +221,8 @@ find:
                 cin.get();
                 break;
             }
-            else if (answer == 't')
-                break;
             else
-            {
-                system("cls");
-                cout << "error" << endl;
-                cin.ignore();
-                cin.get();
-            }
+                break;
         }
     }
 

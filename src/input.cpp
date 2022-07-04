@@ -8,6 +8,7 @@
 void questions(Queue &data)
 {
     Buku buku;
+    cout << "=========== PENAMBAHAN BUKU ===========" << endl;
     cout << "Masukkan judul buku    : ";
     cin.ignore();
     getline(cin, buku.judul);
@@ -41,10 +42,10 @@ int request(Queue &data)
     {
         system("cls");
         questions(data);
-        cout << "\nIngin menginputkan lagi? (y/t)" << endl;
+        cout << "\nIngin menginputkan lagi? ";
         cin >> option;
         size++;
-        if (option == 't')
+        if (option != 'y')
             break;
     }
 
