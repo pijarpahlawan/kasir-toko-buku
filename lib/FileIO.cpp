@@ -91,6 +91,8 @@ void FileIO::read(Queue &new_datas)
     {
         *(datas + index) = new_datas.dequeue();
         (datas + index)->judul = capitalize((datas + index)->judul);
+        (datas + index)->penulis = capitalize((datas + index)->penulis);
+        (datas + index)->penerbit = capitalize((datas + index)->penerbit);
         index++;
     }
 }
